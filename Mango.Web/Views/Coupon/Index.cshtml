@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Mango.Web.Models.CouponDto>
+
 @{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<p>
+    <a asp-action="CouponCreate">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CouponId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CouponCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountAmount)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CouponId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CouponCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiscountAmount)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿@model Mango.Web.Models.CouponDto
+
+@{
+    ViewData["Title"] = "CouponCreate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CouponCreate</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CouponCreate">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CouponCode" class="control-label"></label>
+                <input asp-for="CouponCode" class="form-control" />
+                <span asp-validation-for="CouponCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinAmount" class="control-label"></label>
+                <input asp-for="MinAmount" class="form-control" />
+                <span asp-validation-for="MinAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountAmount" class="control-label"></label>
+                <input asp-for="DiscountAmount" class="form-control" />
+                <span asp-validation-for="DiscountAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

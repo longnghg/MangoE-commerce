@@ -59,6 +59,8 @@ namespace Mango.Web.Service
                         return new() { IsSuccess = false, Message = "Access Deinied " };
                     case System.Net.HttpStatusCode.Unauthorized:
                         return new() { IsSuccess = false, Message = "Unauthorized" };
+                    case System.Net.HttpStatusCode.UnsupportedMediaType:
+                        return new() { IsSuccess = false, Message = "Media type supported" };
                     default:
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
                         var apiResponseDto = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
