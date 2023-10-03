@@ -23,6 +23,12 @@ namespace Mango.Web.Controllers
             if (response != null && response.IsSuccess == true)
             {
                 list = JsonConvert.DeserializeObject<List<CouponDto>>(Convert.ToString(response.Result));
+                TempData["success"] = "All data has been loaded";
+
+            }
+            else
+            {
+                TempData["error"] = response?.Message;
             }
 
             return View(list);
@@ -42,7 +48,12 @@ namespace Mango.Web.Controllers
 
                 if (response != null && response.IsSuccess)
                 {
+                    TempData["success"] = "Create success";
                     return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["error"] = response?.Message;
                 }
             }
             return View();

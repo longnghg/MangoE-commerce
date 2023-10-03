@@ -1,0 +1,21 @@
+﻿
+@model LoginRequestDto
+
+<form method="post">
+    <div class="container border-white p-4">
+        <div class="row mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" asp-for="UserName" aria-describedby="emailHelp" placeholder="Username....">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="row mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="text" class="form-control" asp-for="Password" placeholder="Password....">
+        </div>
+        <div class="row text-center">
+            <div asp-validation-summary="All" class="text-danger"> </div>
+        </div>
+ 
+        <button type="submit" class="btn btn-primary">Login</button>
+    </div>
+</form>

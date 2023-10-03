@@ -26,26 +26,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CouponId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CouponCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MinAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountAmount)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CouponId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CouponCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountAmount)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
