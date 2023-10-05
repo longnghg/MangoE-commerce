@@ -1,9 +1,13 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
 using Mango.Services.AuthAPI.Data;
 using Mango.Services.AuthAPI.Models;
 using Mango.Services.AuthAPI.Service;
 using Mango.Services.AuthAPI.Service.IService;
+using Mango.Services.AuthAPI.Startup;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Mango.Services.AuthAPI.Compositions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +24,16 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFramework
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(container => {
+        CompositionRoot.LongBuild(container);
+    });
+
+
+
+builder.Services.RegisterServices();
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,11 +41,8 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.ConfigureSwagger();
 
 app.UseHttpsRedirection();
 
@@ -42,6 +51,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 ApplyMigration();
+
 app.Run();
 
 

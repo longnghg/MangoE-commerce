@@ -1,4 +1,6 @@
-﻿using Mango.Services.AuthAPI.Models.Dtos;
+﻿using Azure;
+using Mango.Services.AuthAPI.Compositions;
+using Mango.Services.AuthAPI.Models.Dtos;
 using Mango.Services.AuthAPI.Service.IService;
 using Mango.Services.CouponAPI.Models.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -10,14 +12,16 @@ namespace Mango.Services.AuthAPI.Controllers
     [ApiController]
     public class AuthAPIController : ControllerBase
     {
+        private readonly Func<ArchiveKind, IArchivingProcess> _archivingProcess;
         private readonly IAuthService _authService;
 
         protected ResponseDto _response;
 
-        public AuthAPIController(IAuthService authService)
+        public AuthAPIController(IAuthService authService, Func<ArchiveKind, IArchivingProcess> archivingProcess)
         {
             _authService = authService;
             _response = new();
+            _archivingProcess = archivingProcess;
         }
 
         [HttpPost]
@@ -51,6 +55,14 @@ namespace Mango.Services.AuthAPI.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto model)
         {
+            IArchivingContext archivingContext = new ArchivingContext("longGeo", "LongContainer");
+
+
+            await _archivingProcess(ArchiveKind.EngagementArchive).ExecuteAsync(archivingContext);
+
+
+
+
             var loginResponse = await _authService.Login(model);
             if (loginResponse.User == null)
             {
