@@ -1,24 +1,15 @@
 ﻿@model IEnumerable<Mango.Web.Models.ProductDto>
 
-@using Microsoft.AspNetCore.Http.Features
-
 @{
-    var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
-    var showBanner = !consentFeature?.CanTrack ?? false;
-    var cookieString = consentFeature?.CreateConsentCookie();
-    var b = 123;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome: this is your cookiestring 
-        @cookieString
-    </h1>
-    <h2>
-        @showBanner
-    </h2>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1>Index</h1>
 
+<p>
+    <a asp-action="ProductCreate">Create New</a>
+</p>
 <form>
     <div class="container row">
 

@@ -31,7 +31,7 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
 
 
 
-builder.Services.RegisterServices();
+builder.Services.AddScopedServices();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

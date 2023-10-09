@@ -5,7 +5,7 @@ namespace Mango.Services.AuthAPI.Startup
 {
     public static class DependencyInjectionSetup
     {
-        public static IServiceCollection RegisterServices(this IServiceCollection services)
+        public static IServiceCollection AddScopedServices(this IServiceCollection services)
         {
            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
            services.AddScoped<IAuthService, AuthService>();

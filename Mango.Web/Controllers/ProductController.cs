@@ -1,21 +1,21 @@
 ﻿using Mango.Web.Models;
 using Mango.Web.Service.IService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Diagnostics;
 
 namespace Mango.Web.Controllers
 {
-    public class HomeController : Controller
+    public class ProductController : Controller
     {
         private readonly IProductService _productService;
-
-        public HomeController(IProductService productService)
+     
+        public ProductController(IProductService productService)
         {
             _productService = productService;
         }
         [HttpGet]
-        public async Task<IActionResult>  Index()
+        public async Task<IActionResult> Index()
         {
             List<ProductDto>? list = new();
 
@@ -34,7 +34,6 @@ namespace Mango.Web.Controllers
 
             return View(list);
         }
-
         [HttpGet]
         public async Task<IActionResult> Detail(int productId)
         {
@@ -54,19 +53,32 @@ namespace Mango.Web.Controllers
             }
 
             return View(productDto);
-
-
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public async Task<IActionResult> ProductCreate()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public async Task<IActionResult> ProductCreate(ProductDto ProductDto)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (ModelState.IsValid)
+            {
+                ResponseDto? response = await _productService.CreateProductAsync(ProductDto);
+
+                if (response != null && response.IsSuccess)
+                {
+                    TempData["success"] = "Create success";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["error"] = response?.Message;
+                }
+            }
+            return View(ProductDto);
         }
     }
 }
