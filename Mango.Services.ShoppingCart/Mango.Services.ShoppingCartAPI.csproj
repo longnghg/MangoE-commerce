@@ -25,4 +25,8 @@
     <Folder Include="Services\Product\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mango.StringLocalized\Mango.StringLocalized.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,9 +3,11 @@ using Mango.Services.ShoppingCartAPI;
 using Mango.Services.ShoppingCartAPI.Data;
 using Mango.Services.ShoppingCartAPI.Extensions;
 using Mango.Services.ShoppingCartAPI.Startup;
+using Mango.StringLocalized;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Reflection.PortableExecutable;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
+
+
 #region Automapper
 
 builder.Services.RegisterAutoMapperServices();
@@ -27,14 +31,26 @@ builder.Services.RegisterAutoMapperServices();
 #region HttpClients
 
 builder.Services.AddHttpClient("Product", x =>
-    x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]));
+{
+    x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:ProductAPI"]!);
+}).SetHandlerLifetime(TimeSpan.FromMinutes(60));
+
+// thử nghiệm set timeout
 
 builder.Services.AddHttpClient("Coupon", x =>
-    x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]));
+    x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:CouponAPI"]!)).SetHandlerLifetime(TimeSpan.FromMinutes(60));
 #endregion 
+
 #region API services
 builder.Services.RegisterAPIServices();
 #endregion
+
+#region Localized
+
+builder.Services.ConfigureLocalizationServices();
+
+#endregion
+
 // add token swagger gen
 builder.Services.AddSwaggerGen(options =>
 {
@@ -101,3 +117,7 @@ void ApplyMigration()
         }
     }
 }
+
+
+
+

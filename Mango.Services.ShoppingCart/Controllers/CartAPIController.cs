@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using Mango.Services.ShoppingCartAPI.Data;
+using Mango.Services.ShoppingCartAPI.LazyTest;
 using Mango.Services.ShoppingCartAPI.Models;
 using Mango.Services.ShoppingCartAPI.Models.Dtos;
 using Mango.Services.ShoppingCartAPI.Services.IServices.Coupon;
 using Mango.Services.ShoppingCartAPI.Services.IServices.Product;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace Mango.Services.ShoppingCartAPI.Controllers
 {
@@ -18,18 +20,33 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         private readonly AppDbContext _dbContext;
         private readonly IProductService _productService;
         private readonly ICouponService _couponService;
+        IStringLocalizer _stringLocalizer;
+
+
+        private readonly Lazy<CouponLazy> couponLazy;
+
+        private  CouponLazy couponLazyInstance { get { return couponLazy.Value; } }
+
         public CartAPIController(AppDbContext dbContext,
             IMapper mapper,
             IProductService productService,
-            ICouponService couponService
+            ICouponService couponService,
+            IStringLocalizer stringLocalizer
             )
         {
             _dbContext = dbContext;
-           _mapper = mapper;
+            _mapper = mapper;
             _response = new ResponseDto();
+            _stringLocalizer = stringLocalizer;
 
             _productService = productService;
             _couponService = couponService;
+            // test lazy
+            couponLazy = new Lazy<CouponLazy>(() =>
+            {
+                CouponLazy instance = new CouponLazy();
+                return instance;
+            },LazyThreadSafetyMode.ExecutionAndPublication);
         }
         [HttpPost("CartUpsert")]
         public async Task<ResponseDto> CartUpsert(CartDto cartDto)
@@ -123,6 +140,12 @@ namespace Mango.Services.ShoppingCartAPI.Controllers
         {
             try
             {
+                var name = _stringLocalizer["hello2"];
+
+                var te = new ContrucChain();
+                //int getage = couponLazyInstance.AgeCouponLazy;
+                return new ResponseDto();
+
                 CartDto cart = new()
                 {
                     CartHeader = _mapper.Map<CartHeaderDto>(_dbContext.CartHeaders.First(x => x.UserId == userId))
