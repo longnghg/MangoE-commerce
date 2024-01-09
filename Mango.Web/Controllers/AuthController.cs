@@ -117,7 +117,12 @@ namespace Mango.Web.Controllers
             var handler = new JwtSecurityTokenHandler();
 
             var jwt = handler.ReadJwtToken(model.Token);
+            ClaimsPrincipal principal = RegisterPrincipal(jwt);
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        }
 
+        private static ClaimsPrincipal RegisterPrincipal(JwtSecurityToken jwt)
+        {
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
 
             identity.AddClaim(new Claim(JwtRegisteredClaimNames.Email, jwt.Claims.FirstOrDefault(u => u.Type == JwtRegisteredClaimNames.Email).Value));
@@ -134,7 +139,7 @@ namespace Mango.Web.Controllers
             identity.AddClaims(jwt.Claims.Where(u => u.Type == "role"));
 
             var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            return principal;
         }
     }
 }

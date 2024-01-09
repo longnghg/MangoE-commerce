@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<Mango.Web.Models.ProductDto>
-
+@*
 @using Microsoft.AspNetCore.Http.Features
 
 @{
+
+    ViewData["Title"] = "Long";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     var consentFeature = Context.Features.Get<ITrackingConsentFeature>();
     var showBanner = !consentFeature?.CanTrack ?? false;
     var cookieString = consentFeature?.CreateConsentCookie();
@@ -18,7 +21,7 @@
     </h2>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-
+*@
 <form>
     <div class="container row">
 
@@ -44,9 +47,6 @@
                                     <a asp-action="Detail" asp-route-productId="@item.ProductId" class="btn btn-outline-success form-control">View</a>
                                 </div>
                             </div>
-
-
-
 
                         </div>
                     </div>
