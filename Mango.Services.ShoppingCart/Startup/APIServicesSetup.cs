@@ -1,6 +1,6 @@
-﻿using Mango.Services.ShoppingCartAPI.Services;
-using Mango.Services.ShoppingCartAPI.Services.IServices.Coupon;
-using Mango.Services.ShoppingCartAPI.Services.IServices.Product;
+﻿using Mango.Services.ShoppingCartAPI.Services.Clients;
+using Mango.Services.ShoppingCartAPI.Services.Clients.IClients.Coupon;
+using Mango.Services.ShoppingCartAPI.Services.Clients.IClients.Product;
 
 namespace Mango.Services.ShoppingCartAPI.Startup
 {

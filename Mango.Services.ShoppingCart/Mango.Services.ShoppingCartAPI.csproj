@@ -22,11 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Product\" />
+    <ProjectReference Include="..\Mango.Response\Mango.Response.csproj" />
+    <ProjectReference Include="..\Mango.StringLocalized\Mango.StringLocalized.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Mango.StringLocalized\Mango.StringLocalized.csproj" />
+    <Folder Include="Services\IServices\" />
+    <Folder Include="Services\StepServices\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,8 @@
-﻿using Mango.Services.ShoppingCartAPI.Models.Dtos;
-using Mango.Services.ShoppingCartAPI.Services.IServices.Coupon;
+﻿using Mango.Services.PaymentAPI.Models.Dtos;
+using Mango.Services.PaymentAPI.Services.Clients.IClients.Coupon;
 using Newtonsoft.Json;
 
-namespace Mango.Services.ShoppingCartAPI.Services
+namespace Mango.Services.PaymentAPI.Services.Clients
 {
     public class CouponService : ICouponService
     {

@@ -1,6 +1,6 @@
 ﻿using Mango.Services.ShoppingCartAPI.Models.Dtos;
 
-namespace Mango.Services.ShoppingCartAPI.Services.IServices.Coupon
+namespace Mango.Services.ShoppingCartAPI.Services.Clients.IClients.Coupon
 {
     public interface ICouponService
     {
