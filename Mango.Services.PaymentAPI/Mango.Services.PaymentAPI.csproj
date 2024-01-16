@@ -22,10 +22,6 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\StepServices\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Mango.Response\Mango.Response.csproj" />
   </ItemGroup>
 

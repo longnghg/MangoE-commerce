@@ -2,8 +2,9 @@
 
 namespace Mango.Services.PaymentAPI.Services.IServices
 {
-    public interface IOrderActionService
+    public interface IOrderService
     {
         Task<IExecutionOperationResult> ExecuteAsync();
     }
 }
+    

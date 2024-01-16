@@ -15,7 +15,9 @@ namespace Mango.Response.ExecutionResult
 
         public ExecutionOperationResult(string operationName, bool isSucceed = true, Exception error = null) 
         {
-            
+            IsSucceed = isSucceed;  
+            OperationName = operationName;
+            Error = error;
         }
     }
 }

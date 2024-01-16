@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.RegisterServices();
 // Add auto mapper
 
 builder.Services.RegisterAutoMapperServices();
@@ -71,18 +72,18 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-ApplyMigration();
+//ApplyMigration();
 app.Run();
 
 
-void ApplyMigration()
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-        if (dbContext.Database.GetPendingMigrations().Count() > 0)
-        {
-            dbContext.Database.Migrate();
-        }
-    }
-}
+//void ApplyMigration()
+//{
+//    using (var scope = app.Services.CreateScope())
+//    {
+//        var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//        if (dbContext.Database.GetPendingMigrations().Count() > 0)
+//        {
+//            dbContext.Database.Migrate();
+//        }
+//    }
+//}
